@@ -21,10 +21,10 @@ def rastrigin(params, noise_factor):
     for d in range(params.shape[1]):
         ras += params[:, d]**2 - 10*torch.cos(2*np.pi*params[:, d])
 
-    return ras + torch.from_numpy(noise_factor*(2*np.random.rand(params.shape[0]) - 1))
+    return torch.from_numpy(ras.numpy() + noise_factor*(2*np.random.rand(params.shape[0]) - 1)).float()
 
 n_data = 100
-noise = 0.001
+noise = 0.00001
 
 x = torch.from_numpy(2*5.12*np.random.rand(n_data, 2) - 5.12).float()
 y = rastrigin(x, noise).reshape(-1, 1)
@@ -41,6 +41,7 @@ bnn.load(**dict)
 # bnn.infer()
 bnn.config["prior_type"] = "gaussian"
 bnn.infer()
+print(bnn.train_rmse())
 # bnn.all_particles = bnn.all_particles[::-1]
 # bnn.plot_pp(plot_title="Example 4 (Negative Constraint)", domain=np.arange(-0.05, 1.05, 0.01), ylims=(-3, 3), action='show', addons=addons)
 
@@ -65,6 +66,7 @@ plt.figure()
 plt.contourf(xx, yy, -Y_std.reshape(100,100) + Y_mean.reshape(100,100), 40, cmap='viridis_r')
 plt.colorbar()
 plt.contour(xx, yy,  -Y_std.reshape(100,100) + Y_mean.reshape(100,100), levels=[min(Y_mean)], colors='k', linestyles='dashed')
+plt.plot(x[:, 0], x[:, 1], 'ro')
 
 plt.figure()
 plt.contourf(xx, yy, Y_test.reshape(100,100), 40, cmap='viridis_r')

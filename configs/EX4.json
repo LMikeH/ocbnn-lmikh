@@ -1,7 +1,7 @@
 {"prior_type": "oc_negative",
   "use_tensorboard": false,
-  "architecture": [100, 70, 50],
-  "sigma_noise": 0.001,
+  "architecture": [100, 60, 50],
+  "sigma_noise": 0.00001,
   "sigma_w": 1,
   "activation": "rbf",
   "nbatches": 0,
@@ -14,8 +14,8 @@
   "ocn_gamma": 10000,
   "ocn_tau": [15, 2.0],
 
-  "svgd_nparticles": 40,
-  "svgd_epochs": 1000,
+  "svgd_nparticles": 10,
+  "svgd_epochs": 500,
   "svgd_init_lr": 0.01,
 
   "hmc_nburnin": 10000,
