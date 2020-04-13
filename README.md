@@ -1,3 +1,8 @@
+
+
+This is a copy of dtak/ocbnn-public just for messing around and experimenting.
+
+
 # [Output-Constrained Bayesian Neural Networks (OC-BNN)](https://arxiv.org/abs/1905.06287)
 
 This open-source repository contains the codebase for the implementation of OC-BNNs, as well as synthetic data used to generate the results in the paper. We have designed this repository not only for paper reproducibility purposes, but also as a general purpose library for implementing both OC-BNNs and generic (vanilla) BNNs. We hope this resource will be helpful for practitioners working with BNNs.

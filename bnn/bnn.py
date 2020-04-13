@@ -46,7 +46,9 @@ class BayesianNeuralNetwork:
 	def _nonlinearity(self, x):
 		""" Activation function. """
 		if self.config["activation"] == "rbf":
-			return torch.exp(-x.pow(2))
+			return torch.exp(-(x).pow(2))  # gaussian rbf epsilon = 1
+		elif self.config['activation'] == 'tanh':
+			return torch.tanh(x)
 		return x
 
 	def forward(self, X, weights=None):

@@ -21,9 +21,11 @@ def rastrigin(params, noise_factor):
     for d in range(params.shape[1]):
         ras += params[:, d]**2 - 10*torch.cos(2*np.pi*params[:, d])
 
-    return torch.from_numpy(ras.numpy() + noise_factor*(2*np.random.rand(params.shape[0]) - 1)).float()
+    y = torch.from_numpy(ras.numpy() + noise_factor*(2*np.random.rand(params.shape[0]) - 1)).float()
+    return (y-y.mean())/y.std()
 
-n_data = 100
+
+n_data = 50
 noise = 0.00001
 
 x = torch.from_numpy(2*5.12*np.random.rand(n_data, 2) - 5.12).float()
@@ -54,22 +56,22 @@ Y_mean, Y_std = bnn.predict_all(X_test/5.12)
 
 Y_test = rastrigin(X_test, 0.0)
 
-plt.contourf(xx, yy, Y_mean.reshape(100,100), 40, cmap='viridis_r')
+plt.contourf(xx, yy, Y_mean.reshape(100,100), 20, cmap='viridis_r')
 plt.colorbar()
 
 plt.figure()
-plt.contourf(xx, yy, Y_std.reshape(100,100), 40, cmap='jet')
+plt.contourf(xx, yy, Y_std.reshape(100,100), 20, cmap='jet')
 plt.colorbar()
 plt.plot(x[:, 0], x[:, 1], 'ro')
 
 plt.figure()
-plt.contourf(xx, yy, -Y_std.reshape(100,100) + Y_mean.reshape(100,100), 40, cmap='viridis_r')
+plt.contourf(xx, yy, -Y_std.reshape(100,100) + Y_mean.reshape(100,100), 20, cmap='viridis_r')
 plt.colorbar()
 plt.contour(xx, yy,  -Y_std.reshape(100,100) + Y_mean.reshape(100,100), levels=[min(Y_mean)], colors='k', linestyles='dashed')
 plt.plot(x[:, 0], x[:, 1], 'ro')
 
 plt.figure()
-plt.contourf(xx, yy, Y_test.reshape(100,100), 40, cmap='viridis_r')
+plt.contourf(xx, yy, Y_test.reshape(100,100), 20, cmap='viridis_r')
 plt.colorbar()
 plt.show()
 
